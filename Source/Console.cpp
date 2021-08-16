@@ -4,6 +4,21 @@ uint16_t* Console::videoMemoryAddressStart = (uint16_t*)0xB8000;
 uint16_t* Console::lastVideoMemoryAddressPosition = videoMemoryAddressStart;
 uint16_t* Console::videoMemoryAddressEnd = (uint16_t*)0xBFFFF;
 
+Console::Console()
+{
+
+}
+
+Console::Console(const Console& console)
+{
+    Memory::MemoryCopy(this, &console, sizeof(console));
+}
+
+Console::~Console()
+{
+    
+}
+
 void Console::Print(const int8_t* string)
 {
     for(uint32_t i = 0; string[i] != 0; i++)
@@ -36,19 +51,19 @@ void Console::Print(int64_t integer)
         integer = Math::Divide(integer, 10);
     }
 
-    if (lastVideoMemoryAddressPosition > videoMemoryAddressEnd)
-    {
-        lastVideoMemoryAddressPosition = videoMemoryAddressStart;
-    }
-
     if (isNegative)
     {
+        if (lastVideoMemoryAddressPosition > videoMemoryAddressEnd)
+        {
+            lastVideoMemoryAddressPosition = videoMemoryAddressStart;
+        }
+
         *lastVideoMemoryAddressPosition++ = (*lastVideoMemoryAddressPosition & 0xFF00) | '-';
     }
 
     while (integerCopy != 0)
     {
-        *lastVideoMemoryAddressPosition = (*lastVideoMemoryAddressPosition & 0xFF00) | char(Math::Divide(integerCopy, firstLeftDigit) + '0');
+        *lastVideoMemoryAddressPosition = (*lastVideoMemoryAddressPosition & 0xFF00) | int8_t(Math::Divide(integerCopy, firstLeftDigit) + '0');
         integerCopy = Math::Mod(integerCopy, firstLeftDigit);
         firstLeftDigit = Math::Divide(firstLeftDigit, 10);
         

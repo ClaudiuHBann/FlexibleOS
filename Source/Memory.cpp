@@ -1,5 +1,20 @@
 #include "Memory.h"
 
+Memory::Memory()
+{
+  
+}
+
+Memory::Memory(const Memory &memory)
+{
+  MemoryCopy(this, &memory, sizeof(memory));
+}
+
+Memory::~Memory()
+{
+
+}
+
 void *Memory::MemoryCopy(void *destination, const void *source, uint64_t length)
 {
     int8_t *d = (int8_t*)destination;

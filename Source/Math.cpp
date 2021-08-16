@@ -1,5 +1,20 @@
 #include "Math.h"
 
+Math::Math()
+{
+    
+}
+
+Math::Math(const Math &math)
+{
+    Memory::MemoryCopy(this, &math, sizeof(math));
+}
+
+Math::~Math()
+{
+
+}
+
 int64_t Math::Divide(int64_t dividend, int64_t divisor)
 {
     int32_t sign = ((dividend < 0) ^ (divisor < 0)) ? -1 : 1;

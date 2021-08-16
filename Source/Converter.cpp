@@ -1,8 +1,23 @@
 #include "Converter.h"
 
+Converter::Converter()
+{
+	
+}
+
+Converter::Converter(const Converter& converter)
+{
+	Memory::MemoryCopy(this, &converter, sizeof(converter));
+}
+
+Converter::~Converter()
+{
+
+}
+
 const int8_t* Converter::Base10ToAnyBase(int64_t value, const uint8_t base)
 {
-    static char result[64];
+    static int8_t result[64];
 
 	if (base < 2 || base > 36)
     {
@@ -11,8 +26,8 @@ const int8_t* Converter::Base10ToAnyBase(int64_t value, const uint8_t base)
         return result;
     }
 
-	char* string = result, *stringCopy = result, temporaryChar;
-	int temporaryValue;
+	int8_t* string = result, *stringCopy = result, temporaryChar;
+	int32_t temporaryValue;
 
 	do
     {
@@ -38,7 +53,7 @@ const int8_t* Converter::Base10ToAnyBase(int64_t value, const uint8_t base)
 	return result;
 }
 
-const char* Converter::IntegerToString(int64_t integer)
+const int8_t* Converter::IntegerToString(int64_t integer)
 {
     uint8_t integerLength = 0;
     int64_t integerCopy = integer;
@@ -49,16 +64,16 @@ const char* Converter::IntegerToString(int64_t integer)
         integer = Math::Divide(integer, 10);
     }
 
-    static char string[20];
+    static int8_t string[20];
     for (int64_t i = integerLength - 1; i >= 0; i--)
     {
-        string[i] = char(Math::Mod(integerCopy, 10) + '0');
+        string[i] = int8_t(Math::Mod(integerCopy, 10) + '0');
         integerCopy = Math::Divide(integerCopy, 10);
     }
 
     string[integerLength] = 0;
 
-    return (const char*)string;
+    return (const int8_t*)string;
 }
 
 int64_t Converter::StringToInteger(const int8_t *string)

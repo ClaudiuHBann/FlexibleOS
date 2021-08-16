@@ -3,13 +3,14 @@
 
 #include "Types.h"
 #include "Math.h"
+#include "Memory.h"
 
 class Console
 {
 public:
     Console();
     Console(const Console& console);
-    virtual ~Console();
+    ~Console();
 
     static void Print(const int8_t* string);
     static void Print(int64_t integer);
