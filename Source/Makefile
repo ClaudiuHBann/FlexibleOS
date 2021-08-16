@@ -2,7 +2,7 @@ GCCPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-excep
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 OSName = SimpleOS
-Objects = Loader.o Kernel.o Everything.o
+Objects = Loader.o Kernel.o Console.o Converter.o Math.o Memory.o
 
 %.o: %.cpp
 	gcc $(GCCPARAMS) -c -o $@ $<

@@ -1,4 +1,5 @@
-#include "Everything.h"
+#include "Types.h"
+#include "Console.h"
 
 extern "C" Constructor constructorsStart, constructorsEnd;
 
@@ -12,10 +13,12 @@ extern "C" void ConstructorsCall()
 
 extern "C" void KernelMain(const void* multibootStructure, uint32_t)
 {
-    MultibootInfo multibootInfo = *(MultibootInfo*)multibootStructure;
+    MULTIBOOT_INFO multibootInfo = *(MULTIBOOT_INFO*)multibootStructure;
 
+    Console::Print("Hello from SimpleOS!");
+        
     while (true)
-    {    
-        //Console::Print("Hello from SimpleOS!");
+    {
+
     }
 }
