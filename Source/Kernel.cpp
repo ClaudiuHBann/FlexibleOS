@@ -2,11 +2,11 @@
 #include "Console.h"
 #include "GlobalDescriptorTable.h"
 
-extern "C" Constructor constructorsStart, constructorsEnd;
+extern "C" constructor_t constructorsStart, constructorsEnd;
 
 extern "C" void ConstructorsCall()
 {
-    for(Constructor* i = &constructorsStart; i != &constructorsEnd; i++)
+    for(constructor_t* i = &constructorsStart; i != &constructorsEnd; i++)
     {
         (*i)();
     }
@@ -14,12 +14,12 @@ extern "C" void ConstructorsCall()
 
 extern "C" void KernelMain(const void* multibootStructure, uint32_t)
 {
-    MULTIBOOT_INFO multibootInfo = *(MULTIBOOT_INFO*)multibootStructure;
+    multibootInfo_t multibootInfo = *(pMultibootInfo_t)multibootStructure;
 
     GlobalDescriptorTable gdt;
 
-    Console::Print("Hello from SimpleOS!");
-        
+    Console::Print(2);
+
     while (true)
     {
 

@@ -1,21 +1,21 @@
 #include "GlobalDescriptorTable.h"
 
 GlobalDescriptorTable::GlobalDescriptorTable():
-nullSegmentSelector(0, 0, 0),
-unusedSegmentSelector(0, 0, 0),
-codeSegmentSelector(0, 64 * 1024 * 1024, 0x9A),
-dataSegmentSelector(0, 64 * 1024 * 1024, 0x92)
+m_nullSegmentSelector(0, 0, 0),
+m_unusedSegmentSelector(0, 0, 0),
+m_codeSegmentSelector(0, 64 * MEGABYTE, 0x9A),
+m_dataSegmentSelector(0, 64 * MEGABYTE, 0x92)
 {
-    uint32_t i[2];
-    i[0] = (uint32_t)this;
-    i[1] = sizeof(GlobalDescriptorTable) << 16;
+    uint32_t temporary[2];
+    temporary[0] = (uint32_t)this;
+    temporary[1] = sizeof(GlobalDescriptorTable) << 16;
 
-    asm volatile("lgdt (%0)": :"p" (((uint8_t*)i) + 2));
+    asm volatile("lgdt (%0)": :"p" (((uint8_t*)temporary) + 2));
 }
 
 GlobalDescriptorTable::GlobalDescriptorTable(const GlobalDescriptorTable &globalDescriptorTable)
 {
-    Memory::MemoryCopy(this, &globalDescriptorTable, sizeof(globalDescriptorTable));
+    Memory::Copy(this, &globalDescriptorTable, sizeof(globalDescriptorTable));
 }
 
 GlobalDescriptorTable::~GlobalDescriptorTable()
@@ -25,15 +25,15 @@ GlobalDescriptorTable::~GlobalDescriptorTable()
 
 uint16_t GlobalDescriptorTable::GetDataSegmentSelector() const
 {
-    return (uint8_t*)&dataSegmentSelector - (uint8_t*)this;
+    return (uint8_t*)&m_dataSegmentSelector - (uint8_t*)this;
 }
 
 uint16_t GlobalDescriptorTable::GetCodeSegmentSelector() const
 {
-    return (uint8_t*)&codeSegmentSelector - (uint8_t*)this;
+    return (uint8_t*)&m_codeSegmentSelector - (uint8_t*)this;
 }
 
-GlobalDescriptorTable::SegmentDescriptor::SegmentDescriptor(uint32_t base, uint32_t limit, uint8_t flags)
+GlobalDescriptorTable::SegmentDescriptor::SegmentDescriptor(uint32_t base, uint32_t limit, uint8_t type)
 {
     uint8_t* target = (uint8_t*)this;
 
@@ -64,7 +64,7 @@ GlobalDescriptorTable::SegmentDescriptor::SegmentDescriptor(uint32_t base, uint3
     target[4] = (base >> 16) & 0xFF;
     target[7] = (base >> 24) & 0xFF;
 
-    target[5] = flags;
+    target[5] = type;
 }
 
 GlobalDescriptorTable::SegmentDescriptor::SegmentDescriptor()
@@ -74,7 +74,7 @@ GlobalDescriptorTable::SegmentDescriptor::SegmentDescriptor()
 
 GlobalDescriptorTable::SegmentDescriptor::SegmentDescriptor(const SegmentDescriptor &segmentDescriptor)
 {
-    Memory::MemoryCopy(this, &segmentDescriptor, sizeof(segmentDescriptor));
+    Memory::Copy(this, &segmentDescriptor, sizeof(segmentDescriptor));
 }
 
 GlobalDescriptorTable::SegmentDescriptor::~SegmentDescriptor()
@@ -86,6 +86,7 @@ uint32_t GlobalDescriptorTable::SegmentDescriptor::GetBase() const
 {
     uint8_t* target = (uint8_t*)this;
     uint32_t result = target[7];
+
     result = (result << 8) + target[4];
     result = (result << 8) + target[3];
     result = (result << 8) + target[2];
@@ -97,6 +98,7 @@ uint32_t GlobalDescriptorTable::SegmentDescriptor::GetLimit() const
 {
     uint8_t* target = (uint8_t*)this;
     uint32_t result = target[6] & 0xF;
+
     result = (result << 8) + target[1];
     result = (result << 8) + target[0];
 

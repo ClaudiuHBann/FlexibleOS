@@ -7,7 +7,7 @@ Memory::Memory()
 
 Memory::Memory(const Memory &memory)
 {
-  MemoryCopy(this, &memory, sizeof(memory));
+  Copy(this, &memory, sizeof(memory));
 }
 
 Memory::~Memory()
@@ -15,26 +15,26 @@ Memory::~Memory()
 
 }
 
-void *Memory::MemoryCopy(void *destination, const void *source, uint64_t length)
+void *Memory::Copy(void *destination, const void *source, uint64_t length)
 {
-    int8_t *d = (int8_t*)destination;
-    const int8_t *s = (int8_t*)source;
+    int8_t *destinationCopy = (int8_t*)destination;
+    const int8_t *sourceCopy = (int8_t*)source;
 
     while (length--)
     {
-        *d++ = *s++;
+        *destinationCopy++ = *sourceCopy++;
     }
 
     return destination;
 }
 
-void *Memory::MemorySet(void *destination, int32_t value, uint64_t length)
+void *Memory::Set(void *destination, int32_t value, uint64_t length)
 {
-  uint8_t *ptr = (uint8_t*)destination;
+  uint8_t *destinationCopy = (uint8_t*)destination;
 
   while (length-- > 0)
   {
-    *ptr++ = value;
+    *destinationCopy++ = value;
   }
 
   return destination;

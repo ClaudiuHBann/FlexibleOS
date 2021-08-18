@@ -7,7 +7,7 @@ Math::Math()
 
 Math::Math(const Math &math)
 {
-    Memory::MemoryCopy(this, &math, sizeof(math));
+    Memory::Copy(this, &math, sizeof(math));
 }
 
 Math::~Math()
@@ -17,31 +17,31 @@ Math::~Math()
 
 int64_t Math::Divide(int64_t dividend, int64_t divisor)
 {
-    int32_t sign = ((dividend < 0) ^ (divisor < 0)) ? -1 : 1;
+    bool isNegative = ((dividend < 0) ^ (divisor < 0)) ? true : false;
 
     dividend = Absolute(dividend);
     divisor = Absolute(divisor);
 
-    int64_t quotient = 0, temp = 0;
+    int64_t quotient = 0, temporary = 0;
 
-    for (int32_t i = 31; i >= 0; i--)
+    for (int8_t i = 31; i >= 0; i--)
     {
-    	if (temp + (divisor << i) <= dividend)
+    	if (temporary + (divisor << i) <= dividend)
         {
-    	    temp += divisor << i;
+    	    temporary += divisor << i;
     	    quotient |= 1LL << i;
     	}
     }
 
-    return (sign == -1) ? -quotient : quotient;
+    return (isNegative) ? -quotient : quotient;
 }
 
-int64_t Math::Absolute(int64_t integer)
+int64_t Math::Absolute(int64_t number)
 {
-    return (integer > 0) ? integer : -integer;
+    return (number > 0) ? number : -number;
 }
 
-int64_t Math::Mod(int64_t num, int64_t divisor)
+int64_t Math::Modulo(int64_t dividend, int64_t divisor)
 {
-    return (num - divisor * Divide(num, divisor));
+    return (dividend - divisor * Divide(dividend, divisor));
 }
