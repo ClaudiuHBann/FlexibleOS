@@ -1,2 +1,2 @@
-# SimpleOS
+# FlexibleOS
 A simple operating system.
