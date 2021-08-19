@@ -18,7 +18,7 @@ extern "C" void KernelMain(const void* multibootStructure, uint32_t)
 
     GlobalDescriptorTable gdt;
 
-    Console::Print(2);
+    Console console;
 
     while (true)
     {

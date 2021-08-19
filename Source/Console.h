@@ -8,13 +8,6 @@
 
 #define BLINKING 0x80
 
-enum class VGAModes
-{
-    VGA_MODE_GRAPHICS =     0,
-    VGA_MODE_TEXT =         1,
-    VGA_MODE_TEXT_COLORED = 2
-};
-
 enum class VGAModesAddresses
 {
     VGA_MODE_GRAPHICS_ADDRESS_BEGIN =   0xA0000,
@@ -63,30 +56,46 @@ public:
     Console(const Console& console);
     ~Console();
 
-    static void SetVGAMode(const VGAModes vgaMode);
+    static void Write(const int8_t* string);
+    static void WriteLine(const int8_t* string);
+    static void Write(const int64_t integer);
+    static void WriteLine(const int64_t integer);
+    static void Write(const uint32ptr_t pointer, const uint8_t base = 16);
+    static void WriteLine(const uint32ptr_t pointer, const uint8_t base = 16);
 
-    static void Print(const int8_t* string);
-    static void Print(int64_t integer);
-    static void Print(uint32ptr_t pointer, const uint8_t base = 16);
+    static void* ReadKey();
+    static const int64_t Read();
+    static const int8_t* ReadLine();
 
-    static void Clear();
+    static void ClearScreen();
     static void ClearLine(const uint8_t line);
+    static void ClearColumn(const uint8_t column);
+    static void ClearRectangle(const rectangle_t& rectangle);
 
-    static size_t& GetConsoleSize();
-    static coordinates_t& GetConsoleCursorCoordinates();
-    static uint8_t GetConsoleTextColor();
     static bool GetIsBlinking();
+    static size_t& GetSize();
+    static uint8_t GetTextColor();
+    static coordinates_t& GetCursorCoordinates();
 
+    static void SetSize(const size_t &size);
+    static void SetIsBlinking(const bool isBlinking);
+    static void SetTextColor(const uint8_t color);
+    static void SetCursorCoodinates(const coordinates_t &coordinates);
 
-    static bool SetIsBlinking(const bool isBlinking);
+    void operator<<(const int8_t* string);
+    void operator<<(const int64_t integer);
+    void operator<<(const uint32ptr_t pointer);
+
+    void operator>>(const int8_t *&string);
+    void operator>>(const int64_t integer);
 
 private:
     static uint8ptr_t s_pVGAModeGraphicsAddressPosition, s_pVGAModeTextAddressPosition;
     static uint16ptr_t s_pVGAModeTextColoredAddressPosition;
 
-    static size_t s_consoleSize;
-    static coordinates_t s_consoleCursorCoordinates;
-    static uint8_t s_consoleTextColor;
+    static size_t s_size;
+    static coordinates_t s_cursorCoordinates;
+    static uint8_t s_textColor;
 
     static bool s_isBlinking;
 };

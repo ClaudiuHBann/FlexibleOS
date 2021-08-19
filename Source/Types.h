@@ -79,4 +79,12 @@ typedef struct size_s
     uint8_t height;
 }size_t, *pSize_t;
 
+typedef struct rectangle_s
+{
+    uint8_t x;
+    uint8_t y;
+    uint8_t width;
+    uint8_t height;
+}rectangle_t, *pRectangle_t;
+
 #endif // !_TYPES_H
