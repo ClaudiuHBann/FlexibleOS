@@ -102,27 +102,27 @@ void Console::SetCursorCoodinates(const coordinates_t &coordinates)
     }
 }
 
-void Console::operator<<(const int8_t* string)
+Console& Console::operator<<(const int8_t* string)
 {
     Write(string);
 }
 
-void Console::operator<<(const int64_t integer)
+Console& Console::operator<<(const int64_t integer)
 {
     Write(integer);
 }
 
-void Console::operator<<(const uint32ptr_t pointer)
+Console& Console::operator<<(const uint32ptr_t pointer)
 {
     Write(pointer);
 }
 
-void Console::operator>>(const int8_t *&string)
+Console& Console::operator>>(const int8_t *&string)
 {
     
 }
 
-void Console::operator>>(const int64_t integer)
+Console& Console::operator>>(const int64_t integer)
 {
 
 }
@@ -236,5 +236,33 @@ void Console::Write(const int8_t* string)
 
 void Console::Write(int64_t integer)
 {
-    
+	int64_t integerCopy = integer, firstLeftDigit = 1;
+
+	if (integer < 0)
+	{
+		integer = -integer;
+		integerCopy = integer;
+
+        *s_pVGAModeTextColoredAddressPosition = (s_textColor << 8) | '-';
+		s_pVGAModeTextColoredAddressPosition++;
+        INCREMENT_AND_CHECK_CURSOR_COORDINATES
+        RESET_VGAMTCAP_AND_CURSOR_COORDINATES_IF_NEEDED
+	}
+
+	while (integer > 9)
+	{
+        firstLeftDigit *= 10;
+		integer = Math::Divide(integer, 10);
+	}
+
+    while (firstLeftDigit != 0)
+    {
+        *s_pVGAModeTextColoredAddressPosition = (s_textColor << 8) | Math::Divide(integerCopy, firstLeftDigit) + '0';
+        integerCopy = Math::Modulo(integerCopy, firstLeftDigit);
+        firstLeftDigit = Math::Divide(firstLeftDigit, 10);
+
+		s_pVGAModeTextColoredAddressPosition++;
+        INCREMENT_AND_CHECK_CURSOR_COORDINATES
+        RESET_VGAMTCAP_AND_CURSOR_COORDINATES_IF_NEEDED
+	}
 }

@@ -54,7 +54,32 @@ const int8_t* Converter::Base10ToAnyBase(int64_t value, const uint8_t base)
 
 const int8_t* Converter::IntegerToString(int64_t integer)
 {
-    return nullptr;
+    static int8_t c_string[21];
+	int8_t integerLength = 0, stopAt = 0;
+	int64_t integerCopy = integer;
+
+	if (integer < 0)
+	{
+		integer = -integer;
+		integerCopy = integer;
+		integerLength++;
+		stopAt = 1;
+		c_string[0] = '-';
+	}
+
+	while (integer != 0)
+	{
+		integerLength++;
+		integer = Math::Divide(integer, 10);
+	}
+
+	c_string[integerLength] = 0;
+	for (int8_t i = integerLength - 1; i >= stopAt; i--, integerCopy = Math::Divide(integerCopy, 10))
+	{
+		c_string[i] = Math::Modulo(integerCopy, 10) + '0';
+	}
+
+	return c_string;
 }
 
 int64_t Converter::StringToInteger(const int8_t *string)

@@ -82,12 +82,12 @@ public:
     static void SetTextColor(const uint8_t color);
     static void SetCursorCoodinates(const coordinates_t &coordinates);
 
-    void operator<<(const int8_t* string);
-    void operator<<(const int64_t integer);
-    void operator<<(const uint32ptr_t pointer);
+    Console& operator<<(const int8_t* string);
+    Console& operator<<(const int64_t integer);
+    Console& operator<<(const uint32ptr_t pointer);
 
-    void operator>>(const int8_t *&string);
-    void operator>>(const int64_t integer);
+    Console& operator>>(const int8_t *&string);
+    Console& operator>>(const int64_t integer);
 
 private:
     static uint8ptr_t s_pVGAModeGraphicsAddressPosition, s_pVGAModeTextAddressPosition;
