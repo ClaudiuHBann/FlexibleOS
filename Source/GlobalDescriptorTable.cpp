@@ -7,8 +7,8 @@ m_codeSegmentSelector(0, 64 * MEGABYTE, 0x9A),
 m_dataSegmentSelector(0, 64 * MEGABYTE, 0x92)
 {
     uint32_t temporary[2];
-    temporary[0] = (uint32_t)this;
-    temporary[1] = sizeof(GlobalDescriptorTable) << 16;
+    temporary[1] = (uint32_t)this;
+    temporary[0] = sizeof(GlobalDescriptorTable) << 16;
 
     asm volatile("lgdt (%0)": :"p" (((uint8_t*)temporary) + 2));
 }

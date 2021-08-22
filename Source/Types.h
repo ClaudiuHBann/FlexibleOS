@@ -52,39 +52,39 @@ typedef unsigned long long* uint64ptr_t;
 
 typedef struct multibootInfo_s
 {
-    uint32_t magic;       //all required...
-    uint32_t flags;
-    uint32_t checksum;
-    uint32_t headerAddr;  //all optional, set if bit 16 in flags is set...
-    uint32_t loadAddr;
-    uint32_t loadEndAddr;
-    uint32_t bssEndAddr;
-    uint32_t entryPoint;
-    uint32_t modType;     //all optional, set if bit 2 in flags is set...
-    uint32_t width;
-    uint32_t height;
-    uint32_t depth;
+    uint32_t m_magic;       //all required...
+    uint32_t m_flags;
+    uint32_t m_checksum;
+    uint32_t m_headerAddr;  //all optional, set if bit 16 in flags is set...
+    uint32_t m_loadAddr;
+    uint32_t m_loadEndAddr;
+    uint32_t m_bssEndAddr;
+    uint32_t m_entryPoint;
+    uint32_t m_modType;     //all optional, set if bit 2 in flags is set...
+    uint32_t m_width;
+    uint32_t m_height;
+    uint32_t m_depth;
 
 }multibootInfo_t, *pMultibootInfo_t;
 
 typedef struct coordinates_s
 {
-    uint8_t x;
-    uint8_t y;
+    uint8_t m_x;
+    uint8_t m_y;
 }coordinates_t, *pCoordinates_t;
 
 typedef struct size_s
 {
-    uint8_t width;
-    uint8_t height;
+    uint8_t m_width;
+    uint8_t m_height;
 }size_t, *pSize_t;
 
 typedef struct rectangle_s
 {
-    uint8_t x;
-    uint8_t y;
-    uint8_t width;
-    uint8_t height;
+    uint8_t m_x;
+    uint8_t m_y;
+    uint8_t m_width;
+    uint8_t m_height;
 }rectangle_t, *pRectangle_t;
 
 #endif // !_TYPES_H

@@ -1,17 +1,17 @@
 #include "Console.h"
 
 #define INCREMENT_AND_CHECK_CURSOR_COORDINATES \
-if (++s_cursorCoordinates.x == 80) \
+if (++s_cursorCoordinates.m_x == 80) \
 { \
-    s_cursorCoordinates.x = 0; \
-    s_cursorCoordinates.y++; \
+    s_cursorCoordinates.m_x = 0; \
+    s_cursorCoordinates.m_y++; \
 } \
 
 #define RESET_VGAMTCAP_AND_CURSOR_COORDINATES_IF_NEEDED \
-if (s_cursorCoordinates.y == 25) \
+if (s_cursorCoordinates.m_y == 25) \
 { \
     s_pVGAModeTextColoredAddressPosition = (uint16ptr_t)VGAModesAddresses::VGA_MODE_TEXT_COLORED_ADDRESS_BEGIN; \
-    s_cursorCoordinates.y = 0; \
+    s_cursorCoordinates.m_y = 0; \
 } \
 
 uint8ptr_t Console::s_pVGAModeGraphicsAddressPosition = (uint8ptr_t)VGAModesAddresses::VGA_MODE_GRAPHICS_ADDRESS_BEGIN,
@@ -48,9 +48,9 @@ void Console::ClearScreen()
 {
     s_pVGAModeTextColoredAddressPosition = (uint16ptr_t)VGAModesAddresses::VGA_MODE_TEXT_COLORED_ADDRESS_BEGIN;
 
-    for (uint8_t i = 0; i < s_size.height; i++)
+    for (uint8_t i = 0; i < s_size.m_height; i++)
     {
-        for (uint8_t j = 0; j < s_size.width; j++)
+        for (uint8_t j = 0; j < s_size.m_width; j++)
         {
             *s_pVGAModeTextColoredAddressPosition = ((s_textColor - ((s_isBlinking) ? 128 : 0)) << 8) | ' ';
             s_pVGAModeTextColoredAddressPosition++;
@@ -95,8 +95,8 @@ void Console::SetTextColor(const uint8_t color)
 
 void Console::SetCursorCoodinates(const coordinates_t &coordinates)
 {
-    if (coordinates.x < s_size.width &&
-        coordinates.y < s_size.height)
+    if (coordinates.m_x < s_size.m_width &&
+        coordinates.m_y < s_size.m_height)
     {
         s_cursorCoordinates = coordinates;
     }
@@ -129,39 +129,39 @@ Console& Console::operator>>(const int64_t integer)
 
 void Console::ClearColumn(const uint8_t column)
 {
-    if (column >= s_size.width)
+    if (column >= s_size.m_width)
     {
         return;
     }
 
     s_pVGAModeTextColoredAddressPosition = (uint16ptr_t)((uint32_t)VGAModesAddresses::VGA_MODE_TEXT_COLORED_ADDRESS_BEGIN + (column - 1) * 2);
 
-    for (uint8_t i = 0; i < s_size.height; i++)
+    for (uint8_t i = 0; i < s_size.m_height; i++)
     {
         *s_pVGAModeTextColoredAddressPosition = (s_textColor << 8) | ' ';
-        s_pVGAModeTextColoredAddressPosition += s_size.width;
+        s_pVGAModeTextColoredAddressPosition += s_size.m_width;
     }
 }
 
 void Console::ClearRectangle(const rectangle_t& rectangle)
 {
-    if (rectangle.x + rectangle.width >= s_size.width ||
-        rectangle.y + rectangle.height >= s_size.height)
+    if (rectangle.m_x + rectangle.m_width >= s_size.m_width ||
+        rectangle.m_y + rectangle.m_height >= s_size.m_height)
     {
         return;
     }
     
-    s_pVGAModeTextColoredAddressPosition = (uint16ptr_t)((uint32_t)VGAModesAddresses::VGA_MODE_TEXT_COLORED_ADDRESS_BEGIN + (rectangle.y - 1) * s_size.width * 2 + (rectangle.x - 1) * 2);
+    s_pVGAModeTextColoredAddressPosition = (uint16ptr_t)((uint32_t)VGAModesAddresses::VGA_MODE_TEXT_COLORED_ADDRESS_BEGIN + (rectangle.m_y - 1) * s_size.m_width * 2 + (rectangle.m_x - 1) * 2);
 
-    for (uint8_t i = 0; i < rectangle.height; i++)
+    for (uint8_t i = 0; i < rectangle.m_height; i++)
     {
-        for (uint8_t j = 0; j < rectangle.width; j++)
+        for (uint8_t j = 0; j < rectangle.m_width; j++)
         {
             *s_pVGAModeTextColoredAddressPosition = (s_textColor << 8) | ' ';
             s_pVGAModeTextColoredAddressPosition++;
         }
 
-        s_pVGAModeTextColoredAddressPosition += s_size.width - rectangle.width;
+        s_pVGAModeTextColoredAddressPosition += s_size.m_width - rectangle.m_width;
     }
 }
 
@@ -199,14 +199,14 @@ void Console::WriteLine(const uint32ptr_t pointer, const uint8_t base /* = 16 */
 
 void Console::ClearLine(const uint8_t line)
 {
-    if (line >= s_size.height)
+    if (line >= s_size.m_height)
     {
         return;
     }
     
-    s_pVGAModeTextColoredAddressPosition = (uint16ptr_t)((uint32_t)VGAModesAddresses::VGA_MODE_TEXT_COLORED_ADDRESS_BEGIN + s_size.width * (line - 1) * 2);
+    s_pVGAModeTextColoredAddressPosition = (uint16ptr_t)((uint32_t)VGAModesAddresses::VGA_MODE_TEXT_COLORED_ADDRESS_BEGIN + s_size.m_width * (line - 1) * 2);
 
-    for (uint8_t i = 0; i < s_size.width; i++)
+    for (uint8_t i = 0; i < s_size.m_width; i++)
     {
         *s_pVGAModeTextColoredAddressPosition = (s_textColor << 8) | ' ';
         s_pVGAModeTextColoredAddressPosition++;
@@ -219,9 +219,9 @@ void Console::Write(const int8_t* string)
     {
         if (string[i] == '\n')
         {
-            s_pVGAModeTextColoredAddressPosition += s_size.width - s_cursorCoordinates.x - 1;
+            s_pVGAModeTextColoredAddressPosition += s_size.m_width - s_cursorCoordinates.m_x - 1;
 
-            s_cursorCoordinates.x = 79;
+            s_cursorCoordinates.m_x = 79;
         }
         else
         {

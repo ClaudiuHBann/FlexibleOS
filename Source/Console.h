@@ -90,7 +90,8 @@ public:
     Console& operator>>(const int64_t integer);
 
 private:
-    static uint8ptr_t s_pVGAModeGraphicsAddressPosition, s_pVGAModeTextAddressPosition;
+    static uint8ptr_t s_pVGAModeGraphicsAddressPosition;
+    static uint8ptr_t s_pVGAModeTextAddressPosition;
     static uint16ptr_t s_pVGAModeTextColoredAddressPosition;
 
     static size_t s_size;

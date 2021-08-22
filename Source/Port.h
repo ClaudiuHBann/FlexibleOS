@@ -185,7 +185,7 @@ class Port32: public Port
 public:
     Port32();
     Port32(const Port32 &port32);
-    Port32(uint32_t portNumber);
+    Port32(uint16_t portNumber);
     ~Port32();
 
     /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M

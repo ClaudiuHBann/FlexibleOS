@@ -102,11 +102,18 @@ public:
         uint32_t GetLimit() const;
 
     private:
-        uint16_t m_limitLowBytes, m_baseLowBytes;
-        uint8_t m_baseHighBytes, m_type, m_limitHighBytes, m_baseVhi;
+        uint16_t m_limitLowBytes;
+        uint16_t m_baseLowBytes;
+        uint8_t m_baseHighBytes;
+        uint8_t m_type;
+        uint8_t m_limitHighBytes;
+        uint8_t m_baseVhi;
     } __attribute__((packed));
 
-    SegmentDescriptor m_nullSegmentSelector, m_unusedSegmentSelector, m_codeSegmentSelector, m_dataSegmentSelector;
+    SegmentDescriptor m_nullSegmentSelector;
+    SegmentDescriptor m_unusedSegmentSelector;
+    SegmentDescriptor m_codeSegmentSelector;
+    SegmentDescriptor m_dataSegmentSelector;
 };
 
 #endif // !_GLOBAL_DESCRIPTOR_TABLE_H

@@ -126,7 +126,7 @@ Port32::Port32(const Port32 &port32)
     Memory::Copy(this, &port32, sizeof(port32));
 }
 
-Port32::Port32(uint32_t portNumber):
+Port32::Port32(uint16_t portNumber):
 Port(portNumber)
 {
 
