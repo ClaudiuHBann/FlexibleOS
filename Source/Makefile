@@ -2,7 +2,7 @@ GCCPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-excep
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 OSName = FlexibleOS
-Objects = Loader.o Kernel.o Console.o InterruptManager.o InterruptStubs.o Converter.o Math.o Memory.o GlobalDescriptorTable.o Port.o Error.o
+Objects = Keyboard.o Mouse.o Loader.o Kernel.o Console.o InterruptManager.o InterruptStubs.o Converter.o Math.o Memory.o GlobalDescriptorTable.o Port.o Error.o
 
 %.o: %.cpp
 	gcc $(GCCPARAMS) -c -o $@ $<

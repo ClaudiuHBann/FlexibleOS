@@ -36,7 +36,7 @@ class Converter
 {
 public:
     Converter();
-    Converter(const Converter& converter);
+    Converter(const Converter &converter);
     ~Converter();
 
     /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
@@ -50,7 +50,7 @@ public:
      Returns:  const int8_t*
                 The integer as a const string.
     M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
-    static const int8_t* IntegerToString(int64_t integer);
+    static const int8_t *IntegerToString(int64_t integer);
 
     /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
       Method:   Converter::StringToInteger
@@ -63,7 +63,7 @@ public:
      Returns:  int64_t
                 The string as an integer.
     M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
-    static int64_t StringToInteger(const int8_t* string);
+    static int64_t StringToInteger(const int8_t *string);
 
     /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
       Method:   Converter::Base10ToAnyBase
@@ -78,7 +78,7 @@ public:
      Returns:  const int8_t*
                 The integer in the base as a const string representation.
     M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
-    static const int8_t* Base10ToAnyBase(int64_t integer, const uint8_t base);
+    static const int8_t *Base10ToAnyBase(int64_t integer, const uint8_t base);
 };
 
 #endif // !_CONVERTER_H

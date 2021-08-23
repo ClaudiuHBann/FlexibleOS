@@ -2,15 +2,13 @@
 
 Error::Error()
 {
-
 }
 
-Error::Error(const Error& error)
+Error::Error(const Error &error)
 {
     Memory::Copy(this, &error, sizeof(error));
 }
 
 Error::~Error()
 {
-
 }

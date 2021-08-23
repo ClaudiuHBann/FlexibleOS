@@ -9,75 +9,75 @@
 #ifndef _TYPES_H
 #define _TYPES_H
 
-#define INT8_MIN    (-127 - 1)
-#define INT16_MIN   (-32767 - 1)
-#define INT32_MIN   (-2147483647 - 1)
-#define INT64_MIN   (-9223372036854775807 - 1)
+#define INT8_MIN (-127 - 1)
+#define INT16_MIN (-32767 - 1)
+#define INT32_MIN (-2147483647 - 1)
+#define INT64_MIN (-9223372036854775807 - 1)
 
-#define INT8_MAX    127
-#define INT16_MAX   32767
-#define INT32_MAX   2147483647
-#define INT64_MAX   9223372036854775807
+#define INT8_MAX 127
+#define INT16_MAX 32767
+#define INT32_MAX 2147483647
+#define INT64_MAX 9223372036854775807
 
-#define UINT8_MAX   0xffu
-#define UINT16_MAX  0xffffu
-#define UINT32_MAX  0xffffffffu
-#define UINT64_MAX  0xffffffffffffffffu
+#define UINT8_MAX 0xffu
+#define UINT16_MAX 0xffffu
+#define UINT32_MAX 0xffffffffu
+#define UINT64_MAX 0xffffffffffffffffu
 
-#define KILOBYTE    1024
-#define MEGABYTE    (1024 * 1024)
-#define GIGABYTE    (1024 * MEGABYTE)
+#define KILOBYTE 1024
+#define MEGABYTE (1024 * 1024)
+#define GIGABYTE (1024 * MEGABYTE)
 
 typedef void (*constructor_t)();
 
-typedef char        int8_t;
-typedef short       int16_t;
-typedef int         int32_t;
-typedef long long   int64_t;
+typedef char int8_t;
+typedef short int16_t;
+typedef int int32_t;
+typedef long long int64_t;
 
-typedef unsigned char       uint8_t;
-typedef unsigned short      uint16_t;
-typedef unsigned int        uint32_t;
-typedef unsigned long long  uint64_t;
+typedef unsigned char uint8_t;
+typedef unsigned short uint16_t;
+typedef unsigned int uint32_t;
+typedef unsigned long long uint64_t;
 
-typedef char*       int8ptr_t;
-typedef short*      int16ptr_t;
-typedef int*        int32ptr_t;
-typedef long long*  int64ptr_t;
+typedef char *int8ptr_t;
+typedef short *int16ptr_t;
+typedef int *int32ptr_t;
+typedef long long *int64ptr_t;
 
-typedef unsigned char*      uint8ptr_t;
-typedef unsigned short*     uint16ptr_t;
-typedef unsigned int*       uint32ptr_t;
-typedef unsigned long long* uint64ptr_t;
+typedef unsigned char *uint8ptr_t;
+typedef unsigned short *uint16ptr_t;
+typedef unsigned int *uint32ptr_t;
+typedef unsigned long long *uint64ptr_t;
 
 typedef struct multibootInfo_s
 {
-    uint32_t m_magic;       //all required...
+    uint32_t m_magic; //all required...
     uint32_t m_flags;
     uint32_t m_checksum;
-    uint32_t m_headerAddr;  //all optional, set if bit 16 in flags is set...
+    uint32_t m_headerAddr; //all optional, set if bit 16 in flags is set...
     uint32_t m_loadAddr;
     uint32_t m_loadEndAddr;
     uint32_t m_bssEndAddr;
     uint32_t m_entryPoint;
-    uint32_t m_modType;     //all optional, set if bit 2 in flags is set...
+    uint32_t m_modType; //all optional, set if bit 2 in flags is set...
     uint32_t m_width;
     uint32_t m_height;
     uint32_t m_depth;
 
-}multibootInfo_t, *pMultibootInfo_t;
+} multibootInfo_t, *pMultibootInfo_t;
 
 typedef struct coordinates_s
 {
     uint8_t m_x;
     uint8_t m_y;
-}coordinates_t, *pCoordinates_t;
+} coordinates_t, *pCoordinates_t;
 
 typedef struct size_s
 {
     uint8_t m_width;
     uint8_t m_height;
-}size_t, *pSize_t;
+} size_t, *pSize_t;
 
 typedef struct rectangle_s
 {
@@ -85,6 +85,6 @@ typedef struct rectangle_s
     uint8_t m_y;
     uint8_t m_width;
     uint8_t m_height;
-}rectangle_t, *pRectangle_t;
+} rectangle_t, *pRectangle_t;
 
 #endif // !_TYPES_H

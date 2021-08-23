@@ -28,7 +28,7 @@ class Error
 {
 public:
     Error();
-    Error(const Error& error);
+    Error(const Error &error);
     ~Error();
 };
 

@@ -2,7 +2,6 @@
 
 Math::Math()
 {
-    
 }
 
 Math::Math(const Math &math)
@@ -12,7 +11,6 @@ Math::Math(const Math &math)
 
 Math::~Math()
 {
-
 }
 
 int64_t Math::Divide(int64_t dividend, int64_t divisor)
@@ -26,11 +24,11 @@ int64_t Math::Divide(int64_t dividend, int64_t divisor)
 
     for (int8_t i = 31; i >= 0; i--)
     {
-    	if (temporary + (divisor << i) <= dividend)
+        if (temporary + (divisor << i) <= dividend)
         {
-    	    temporary += divisor << i;
-    	    quotient |= 1LL << i;
-    	}
+            temporary += divisor << i;
+            quotient |= 1LL << i;
+        }
     }
 
     return (isNegative) ? -quotient : quotient;

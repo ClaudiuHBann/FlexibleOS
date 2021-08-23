@@ -15,6 +15,9 @@
 #include "Memory.h"
 #include "Port.h"
 #include "GlobalDescriptorTable.h"
+#include "Types.h"
+
+class InterruptHandler;
 
 /*C+C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C
   Class:    InterruptManager
@@ -41,7 +44,13 @@
 C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C-C*/
 class InterruptManager
 {
+    friend class InterruptHandler;
+
 protected:
+    static InterruptManager *s_activeInterruptManager;
+
+    InterruptHandler *interruptHandlers[256];
+
     struct gateDescriptor_s
     {
         uint16_t m_handlerAddressLowBits;
@@ -49,7 +58,7 @@ protected:
         uint8_t m_reserved;
         uint8_t m_access;
         uint16_t m_handlerAddressHighBits;
-    }__attribute__((packed));
+    } __attribute__((packed));
 
     static gateDescriptor_s s_interruptDescriptorTable[256];
 
@@ -57,7 +66,7 @@ protected:
     {
         uint16_t m_size;
         uint32_t m_base;
-    }__attribute__((packed));
+    } __attribute__((packed));
 
     /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
       Method:   InterruptManager::SetInterruptDescriptorTableEntry
@@ -87,13 +96,14 @@ public:
     InterruptManager(const InterruptManager &interruptManager);
     InterruptManager(GlobalDescriptorTable &globalDescriptorTable);
     ~InterruptManager();
-    
+
     /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
       Method:   InterruptManager::Activate
 
       Summary:  Activates the handled interrupts.
     M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
     void Activate();
+    void Deactivate();
 
     /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
       Method:   InterruptManager::HandleInterrupt
@@ -109,7 +119,8 @@ public:
                   .
     M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
     static uint32_t HandleInterrupt(uint8_t interruptNumber, uint32_t esp);
-    
+    uint32_t DoHandleInterrupt(uint8_t interruptNumber, uint32_t esp);
+
     /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
       Method:   InterruptManager::InterruptIgnore
 
@@ -124,6 +135,22 @@ public:
     M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
     static void HandleInterruptRequest0x00();
     static void HandleInterruptRequest0x01();
+    static void HandleInterruptRequest0x0C();
+};
+
+class InterruptHandler
+{
+protected:
+    uint8_t interruptNumber;
+    InterruptManager *interruptManager;
+
+    InterruptHandler();
+    InterruptHandler(uint8_t interruptNumber, InterruptManager &interruptManager);
+    InterruptHandler(const InterruptHandler &interruptHandler);
+    ~InterruptHandler();
+
+public:
+    virtual uint32_t HandleInterrupt(uint32_t esp);
 };
 
 #endif // !_INTERRUPT_MANAGER_H

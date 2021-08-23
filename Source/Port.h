@@ -54,7 +54,7 @@ protected:
             ~Port8
               Default destructor.
 C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C-C*/
-class Port8: public Port
+class Port8 : public Port
 {
 public:
     Port8();
@@ -98,7 +98,7 @@ public:
             ~Port8Slow
               Default destructor.
 C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C-C*/
-class Port8Slow: public Port8
+class Port8Slow : public Port8
 {
 public:
     Port8Slow();
@@ -134,7 +134,7 @@ public:
             ~Port16
               Default destructor.
 C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C-C*/
-class Port16: public Port
+class Port16 : public Port
 {
 public:
     Port16();
@@ -180,7 +180,7 @@ public:
             ~Port32
               Default destructor.
 C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C-C*/
-class Port32: public Port
+class Port32 : public Port
 {
 public:
     Port32();

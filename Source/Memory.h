@@ -50,7 +50,7 @@ public:
       Returns:  void*
                   Returns the destination.
     M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
-    static void* Set(void *destination, int32_t value, uint64_t length);
+    static void *Set(void *destination, int32_t value, uint64_t length);
 
     /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
       Method:   Memory::Copy
@@ -67,7 +67,7 @@ public:
       Returns:  void*
                   Returns the destination.
     M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
-    static void* Copy(void *destination, const void *source, uint64_t length);
+    static void *Copy(void *destination, const void *source, uint64_t length);
 };
 
 #endif // !_MEMORY_H
