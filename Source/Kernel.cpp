@@ -31,7 +31,7 @@ extern "C" void KernelMain(const void *multibootStructure, uint32_t)
     interruptManager.Activate();
 
     Console console;
-    console << "Hello from FlexibleOS!\n";
+    console << "Flexible@OS ~ $ ";
 
     while (true)
     {
