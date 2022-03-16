@@ -11,11 +11,13 @@
 #ifndef _INTERRUPT_MANAGER_H
 #define _INTERRUPT_MANAGER_H
 
-#include "Console.h"
-#include "Memory.h"
-#include "Port.h"
-#include "GlobalDescriptorTable.h"
-#include "Types.h"
+#include <HardwareCommunication/Port.h>
+
+#include <Common/Console.h>
+#include <Common/Memory.h>
+#include <Common/Types.h>
+
+#include <GlobalDescriptorTable.h>
 
 class InterruptHandler;
 

@@ -1,13 +1,31 @@
-GCCPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore
+GCCPARAMS = -m32 -IInclude -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore
 ASPARAMS = --32
 LDPARAMS = -melf_i386
-OSName = FlexibleOS
-Objects = Keyboard.o Mouse.o Loader.o Kernel.o Console.o InterruptManager.o InterruptStubs.o Converter.o Math.o Memory.o GlobalDescriptorTable.o Port.o Error.o
 
-%.o: %.cpp
+OSName = FlexibleOS
+Objects = Objects/Common/Console.o \
+		  Objects/Common/Converter.o \
+		  Objects/Common/Error.o \
+		  Objects/Common/Math.o \
+		  Objects/Common/Memory.o \
+\
+		  Objects/Drivers/Keyboard.o \
+		  Objects/Drivers/Mouse.o \
+\
+		  Objects/HardwareCommunication/InterruptManager.o \
+		  Objects/HardwareCommunication/InterruptStubs.o \
+		  Objects/HardwareCommunication/Port.o \
+\
+		  Objects/GlobalDescriptorTable.o \
+		  Objects/Kernel.o \
+		  Objects/Loader.o \
+
+Objects/%.o: Source/%.cpp
+	mkdir -p $(@D)
 	gcc $(GCCPARAMS) -c -o $@ $<
 
-%.o: %.asm
+Objects/%.o: Source/%.asm
+	mkdir -p $(@D)
 	as $(ASPARAMS) -o $@ $<
 
 $(OSName).bin: Linker.ld $(Objects)
@@ -28,10 +46,10 @@ $(OSName).iso: $(OSName).bin
 	echo '}'                                 >> iso/boot/grub/grub.cfg
 
 	grub-mkrescue --output=$(OSName).iso iso
-	rm -rf iso
 
-	mv $(OSName).iso ../Build
-	mv $(Objects) ../Build
-	mv $(OSName).bin ../Build
+clean:
+	rm -rf Objects iso
+	rm $(OSName).bin
 
-build: $(OSName).iso
+build: $(OSName).iso clean
+	mv $(OSName).iso Build/

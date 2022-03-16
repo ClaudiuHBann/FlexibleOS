@@ -11,8 +11,8 @@
 #ifndef _ERROR_H
 #define _ERROR_H
 
-#include "Types.h"
-#include "Memory.h"
+#include <Common/Memory.h>
+#include <Common/Types.h>
 
 /*C+C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C
   Class:    Error

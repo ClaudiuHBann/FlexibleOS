@@ -1,4 +1,4 @@
-#include "Mouse.h"
+#include <Drivers/Mouse.h>
 
 MouseDriver::MouseDriver(InterruptManager &interruptManager) : InterruptHandler(0x2C, interruptManager),
                                                                dataPort(0x60),

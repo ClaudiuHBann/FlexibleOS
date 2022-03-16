@@ -1,9 +1,12 @@
-#include "Types.h"
-#include "Console.h"
-#include "GlobalDescriptorTable.h"
-#include "InterruptManager.h"
-#include "Keyboard.h"
-#include "Mouse.h"
+#include <HardwareCommunication/InterruptManager.h>
+
+#include <Drivers/Keyboard.h>
+#include <Drivers/Mouse.h>
+
+#include <Common/Console.h>
+#include <Common/Types.h>
+
+#include <GlobalDescriptorTable.h>
 
 extern "C" constructor_t constructorsStart, constructorsEnd;
 

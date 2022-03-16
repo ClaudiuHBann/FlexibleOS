@@ -1,4 +1,4 @@
-#include "InterruptManager.h"
+#include <HardwareCommunication/InterruptManager.h>
 
 InterruptManager::gateDescriptor_s InterruptManager::s_interruptDescriptorTable[256];
 InterruptManager *InterruptManager::s_activeInterruptManager = nullptr;

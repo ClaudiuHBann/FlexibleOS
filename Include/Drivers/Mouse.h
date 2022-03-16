@@ -1,10 +1,11 @@
 #ifndef _MOUSE_H
 #define _MOUSE_H
 
-#include "Types.h"
-#include "Port.h"
-#include "Console.h"
-#include "InterruptManager.h"
+#include <HardwareCommunication/InterruptManager.h>
+#include <HardwareCommunication/Port.h>
+
+#include <Common/Console.h>
+#include <Common/Types.h>
 
 class MouseDriver : public InterruptHandler
 {

@@ -11,7 +11,7 @@
 #ifndef _MEMORY_H
 #define _MEMORY_H
 
-#include "Types.h"
+#include <Common/Types.h>
 
 /*C+C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C
   Class:    Memory

@@ -11,8 +11,8 @@
 #ifndef _MATH_H
 #define _MATH_H
 
-#include "Types.h"
-#include "Memory.h"
+#include <Common/Memory.h>
+#include <Common/Types.h>
 
 /*C+C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C
   Class:    Math

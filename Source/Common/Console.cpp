@@ -1,4 +1,4 @@
-#include "Console.h"
+#include <Common/Console.h>
 
 #define INCREMENT_AND_CHECK_CURSOR_COORDINATES \
     if (++s_cursorCoordinates.m_x == 80)       \

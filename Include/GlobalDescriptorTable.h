@@ -11,8 +11,8 @@
 #ifndef _GLOBAL_DESCRIPTOR_TABLE_H
 #define _GLOBAL_DESCRIPTOR_TABLE_H
 
-#include "Types.h"
-#include "Memory.h"
+#include <Common/Memory.h>
+#include <Common/Types.h>
 
 /*C+C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C
   Class:    GlobalDescriptorTable

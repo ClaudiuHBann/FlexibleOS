@@ -11,9 +11,9 @@
 #ifndef _CONVERTER_H
 #define _CONVERTER_H
 
-#include "Types.h"
-#include "Math.h"
-#include "Memory.h"
+#include <Common/Memory.h>
+#include <Common/Types.h>
+#include <Common/Math.h>
 
 /*C+C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C
   Class:    Converter

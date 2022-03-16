@@ -1,4 +1,4 @@
-#include "GlobalDescriptorTable.h"
+#include <GlobalDescriptorTable.h>
 
 GlobalDescriptorTable::GlobalDescriptorTable() : m_nullSegmentSelector(0, 0, 0),
                                                  m_unusedSegmentSelector(0, 0, 0),

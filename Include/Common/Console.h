@@ -1,10 +1,10 @@
 #ifndef _CONSOLE_H
 #define _CONSOLE_H
 
-#include "Types.h"
-#include "Math.h"
-#include "Memory.h"
-#include "Converter.h"
+#include <Common/Converter.h>
+#include <Common/Memory.h>
+#include <Common/Types.h>
+#include <Common/Math.h>
 
 #define BLINKING 0x80
 
