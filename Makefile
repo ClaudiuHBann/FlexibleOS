@@ -53,7 +53,10 @@ clean:
 
 	mv $(OSName).iso Build/
 
-build: $(OSName).iso clean
+copy:
+	cp Build/$(OSName).iso /mnt/Desktop
+
+build: $(OSName).iso clean copy
 
 git:
 	git add -A .

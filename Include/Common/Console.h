@@ -83,6 +83,8 @@ public:
     static uint8_t GetTextColor();
     static coordinates_t &GetCursorCoordinates();
 
+    static bool* GetModifiers();
+
     static void SetSize(const size_t &size);
     static void SetIsBlinking(const bool isBlinking);
     static void SetTextColor(const uint8_t color);
@@ -108,6 +110,7 @@ private:
     static uint8_t s_textColor;
 
     static bool s_isBlinking;
+    static bool s_modifiers[3];
 };
 
 #endif // !_CONSOLE_H

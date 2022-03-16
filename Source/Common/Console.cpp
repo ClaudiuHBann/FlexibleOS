@@ -23,6 +23,7 @@ coordinates_t Console::s_cursorCoordinates = {0, 0};
 uint8_t Console::s_textColor = (uint8_t)ConsoleTextColors::BACKGROUND_BLACK | (uint8_t)ConsoleTextColors::FOREGROUND_WHITE;
 
 bool Console::s_isBlinking = false;
+bool Console::s_modifiers[] = {false, false, false};
 
 Console::Console()
 {
@@ -54,6 +55,15 @@ void Console::ClearScreen()
             s_pVGAModeTextColoredAddressPosition++;
         }
     }
+
+    s_pVGAModeTextColoredAddressPosition = (uint16ptr_t)VGAModesAddresses::VGA_MODE_TEXT_COLORED_ADDRESS_BEGIN;
+    s_cursorCoordinates.m_x = 0;
+    s_cursorCoordinates.m_y = 0;
+}
+
+bool *Console::GetModifiers()
+{
+    return s_modifiers;
 }
 
 size_t &Console::GetSize()
@@ -129,52 +139,55 @@ void Console::Write(const uint8_t *string)
 void Console::Write(const int8_t ch)
 {
     if (ch == '\n')
-    {
-        s_pVGAModeTextColoredAddressPosition += s_size.m_width - s_cursorCoordinates.m_x - 1;
+        {
+            s_pVGAModeTextColoredAddressPosition += s_size.m_width - s_cursorCoordinates.m_x - 1;
 
-        s_cursorCoordinates.m_x = 79;
-    }
-    else
-    {
-        *s_pVGAModeTextColoredAddressPosition = (s_textColor << 8) | ch;
-    }
+            s_cursorCoordinates.m_x = 79;
+        }
+        else
+        {
+            *s_pVGAModeTextColoredAddressPosition = (s_textColor << 8) | ch;
+        }
 
-    s_pVGAModeTextColoredAddressPosition++;
-    INCREMENT_AND_CHECK_CURSOR_COORDINATES
-    RESET_VGAMTCAP_AND_CURSOR_COORDINATES_IF_NEEDED
+        s_pVGAModeTextColoredAddressPosition++;
+        INCREMENT_AND_CHECK_CURSOR_COORDINATES
+        RESET_VGAMTCAP_AND_CURSOR_COORDINATES_IF_NEEDED
 }
 
 void Console::WriteLine(const int8_t ch)
 {
     Write(ch);
+    Write('\n');
 }
 
 void Console::Write(const uint8_t ch)
 {
     if (ch == '\n')
-    {
-        s_pVGAModeTextColoredAddressPosition += s_size.m_width - s_cursorCoordinates.m_x - 1;
+        {
+            s_pVGAModeTextColoredAddressPosition += s_size.m_width - s_cursorCoordinates.m_x - 1;
 
-        s_cursorCoordinates.m_x = 79;
-    }
-    else
-    {
-        *s_pVGAModeTextColoredAddressPosition = (s_textColor << 8) | ch;
-    }
+            s_cursorCoordinates.m_x = 79;
+        }
+        else
+        {
+            *s_pVGAModeTextColoredAddressPosition = (s_textColor << 8) | ch;
+        }
 
-    s_pVGAModeTextColoredAddressPosition++;
-    INCREMENT_AND_CHECK_CURSOR_COORDINATES
-    RESET_VGAMTCAP_AND_CURSOR_COORDINATES_IF_NEEDED
+        s_pVGAModeTextColoredAddressPosition++;
+        INCREMENT_AND_CHECK_CURSOR_COORDINATES
+        RESET_VGAMTCAP_AND_CURSOR_COORDINATES_IF_NEEDED
 }
 
 void Console::WriteLine(const uint8_t ch)
 {
     Write(ch);
+    Write('\n');
 }
 
 void Console::WriteLine(const uint8_t *string)
 {
     Write(string);
+    Write('\n');
 }
 
 Console &Console::operator<<(const uint8_t *string)
@@ -184,10 +197,12 @@ Console &Console::operator<<(const uint8_t *string)
 
 Console &Console::operator<<(const int8_t ch)
 {
+    Write(ch);
 }
 
 Console &Console::operator<<(const uint8_t ch)
 {
+    Write(ch);
 }
 
 Console &Console::operator<<(const int64_t integer)
@@ -263,7 +278,8 @@ const int8_t *Console::ReadLine()
 
 void Console::WriteLine(const int8_t *string)
 {
-    Write(string + '\n');
+    Write(string);
+    Write('\n');
 }
 
 void Console::WriteLine(const int64_t integer)
