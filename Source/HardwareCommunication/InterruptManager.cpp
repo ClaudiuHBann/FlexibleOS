@@ -110,7 +110,7 @@ uint32_t InterruptManager::DoHandleInterrupt(uint8_t interruptNumber, uint32_t e
     }
     else if (interruptNumber != 0x20)
     {
-        char *message = "UNHANDLED INTERRUPT 0x00";
+        char message[] = "UNHANDLED INTERRUPT 0x00";
         const char *hex = "0123456789ABCDEF";
         message[22] = hex[(interruptNumber >> 4) & 0x0F];
         message[23] = hex[interruptNumber & 0x0F];

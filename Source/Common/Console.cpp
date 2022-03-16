@@ -115,11 +115,11 @@ Console &Console::operator<<(const uint32ptr_t pointer)
     Write(pointer);
 }
 
-Console &Console::operator>>(const int8_t *&string)
+Console &Console::operator>>(int8_t *&string)
 {
 }
 
-Console &Console::operator>>(const int64_t integer)
+Console &Console::operator>>(int64_t &integer)
 {
 }
 

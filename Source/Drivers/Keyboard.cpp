@@ -35,13 +35,16 @@ uint32_t KeyboardDriver::HandleInterrupt(uint32_t esp)
             break;
 
         default:
-            char *message = "KEYBOARD 0x00";
-            const char *hex = "0123456789ABCDEF";
-            message[11] = hex[(key >> 4) & 0x0F];
-            message[12] = hex[key & 0x0F];
+            // char message[] = "KEYBOARD 0x00";
+            // const char *hex = "0123456789ABCDEF";
+            // message[11] = hex[(key >> 4) & 0x0F];
+            // message[12] = hex[key & 0x0F];
+
+            // Console c;
+            // c << message << " = " << key << " ";
 
             Console c;
-            c << message << " = " << key << " ";
+            c << key;
 
             break;
         }

@@ -86,8 +86,8 @@ public:
     Console &operator<<(const int64_t integer);
     Console &operator<<(const uint32ptr_t pointer);
 
-    Console &operator>>(const int8_t *&string);
-    Console &operator>>(const int64_t integer);
+    Console &operator>>(int8_t *&string);
+    Console &operator>>(int64_t &integer);
 
 private:
     static uint8ptr_t s_pVGAModeGraphicsAddressPosition;

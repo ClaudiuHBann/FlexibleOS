@@ -51,5 +51,11 @@ clean:
 	rm -rf Objects iso
 	rm $(OSName).bin
 
-build: $(OSName).iso clean
 	mv $(OSName).iso Build/
+
+build: $(OSName).iso clean
+
+git:
+	git add -A .
+	git commit -m "$m"
+	git push -u origin master
