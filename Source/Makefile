@@ -33,3 +33,5 @@ $(OSName).iso: $(OSName).bin
 	mv $(OSName).iso ../Build
 	mv $(Objects) ../Build
 	mv $(OSName).bin ../Build
+
+build: $(OSName).iso
