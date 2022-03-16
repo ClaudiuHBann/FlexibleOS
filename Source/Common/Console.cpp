@@ -105,6 +105,91 @@ Console &Console::operator<<(const int8_t *string)
     Write(string);
 }
 
+void Console::Write(const uint8_t *string)
+{
+    for (uint32_t i = 0; string[i] != 0; i++)
+    {
+        if (string[i] == '\n')
+        {
+            s_pVGAModeTextColoredAddressPosition += s_size.m_width - s_cursorCoordinates.m_x - 1;
+
+            s_cursorCoordinates.m_x = 79;
+        }
+        else
+        {
+            *s_pVGAModeTextColoredAddressPosition = (s_textColor << 8) | string[i];
+        }
+
+        s_pVGAModeTextColoredAddressPosition++;
+        INCREMENT_AND_CHECK_CURSOR_COORDINATES
+        RESET_VGAMTCAP_AND_CURSOR_COORDINATES_IF_NEEDED
+    }
+}
+
+void Console::Write(const int8_t ch)
+{
+    if (ch == '\n')
+    {
+        s_pVGAModeTextColoredAddressPosition += s_size.m_width - s_cursorCoordinates.m_x - 1;
+
+        s_cursorCoordinates.m_x = 79;
+    }
+    else
+    {
+        *s_pVGAModeTextColoredAddressPosition = (s_textColor << 8) | ch;
+    }
+
+    s_pVGAModeTextColoredAddressPosition++;
+    INCREMENT_AND_CHECK_CURSOR_COORDINATES
+    RESET_VGAMTCAP_AND_CURSOR_COORDINATES_IF_NEEDED
+}
+
+void Console::WriteLine(const int8_t ch)
+{
+    Write(ch);
+}
+
+void Console::Write(const uint8_t ch)
+{
+    if (ch == '\n')
+    {
+        s_pVGAModeTextColoredAddressPosition += s_size.m_width - s_cursorCoordinates.m_x - 1;
+
+        s_cursorCoordinates.m_x = 79;
+    }
+    else
+    {
+        *s_pVGAModeTextColoredAddressPosition = (s_textColor << 8) | ch;
+    }
+
+    s_pVGAModeTextColoredAddressPosition++;
+    INCREMENT_AND_CHECK_CURSOR_COORDINATES
+    RESET_VGAMTCAP_AND_CURSOR_COORDINATES_IF_NEEDED
+}
+
+void Console::WriteLine(const uint8_t ch)
+{
+    Write(ch);
+}
+
+void Console::WriteLine(const uint8_t *string)
+{
+    Write(string);
+}
+
+Console &Console::operator<<(const uint8_t *string)
+{
+    Write(string);
+}
+
+Console &Console::operator<<(const int8_t ch)
+{
+}
+
+Console &Console::operator<<(const uint8_t ch)
+{
+}
+
 Console &Console::operator<<(const int64_t integer)
 {
     Write(integer);

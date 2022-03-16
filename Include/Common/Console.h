@@ -56,8 +56,14 @@ public:
     Console(const Console &console);
     ~Console();
 
+    static void Write(const int8_t ch);
+    static void WriteLine(const int8_t ch);
+    static void Write(const uint8_t ch);
+    static void WriteLine(const uint8_t ch);
     static void Write(const int8_t *string);
     static void WriteLine(const int8_t *string);
+    static void Write(const uint8_t *string);
+    static void WriteLine(const uint8_t *string);
     static void Write(const int64_t integer);
     static void WriteLine(const int64_t integer);
     static void Write(const uint32ptr_t pointer, const uint8_t base = 16);
@@ -83,6 +89,9 @@ public:
     static void SetCursorCoodinates(const coordinates_t &coordinates);
 
     Console &operator<<(const int8_t *string);
+    Console &operator<<(const uint8_t *string);
+    Console &operator<<(const int8_t ch);
+    Console &operator<<(const uint8_t ch);
     Console &operator<<(const int64_t integer);
     Console &operator<<(const uint32ptr_t pointer);
 
