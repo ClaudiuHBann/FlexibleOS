@@ -1,5 +1,6 @@
 #include <HardwareCommunication/InterruptManager.h>
 
+#include <Drivers/VideoGraphicsArray.h>
 #include <Drivers/Keyboard.h>
 #include <Drivers/Mouse.h>
 
@@ -30,10 +31,21 @@ extern "C" void KernelMain(const void *multibootStructure, uint32_t)
 
     interruptManager.Activate();
 
-    Console console;
-    console << "Flexible@OS ~ $ ";
+    VideoGraphicsArray vga;
+    vga.SetGraphicMode(VGA_MODE_GRAPHIC_320x200x256);
 
+    uint8_t buffer[200 * 320];
+    uint8_t *VGA = (uint8_t *)0xA0000;
     while (true)
     {
+        for (int32_t y = 0; y < 200; y++)
+            for (int32_t x = 0; x < 320; x++)
+                buffer[y * 320 + x] = 0;
+
+        for (int32_t y = 0; y < 200; y++)
+            for (int32_t x = 0; x < 320; x++)
+                buffer[y * 320 + x] = y % 64;
+
+        Memory::Copy(VGA, buffer, 200 * 320);
     }
 }

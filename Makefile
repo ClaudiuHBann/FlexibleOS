@@ -9,6 +9,7 @@ Objects = Objects/Common/Console.o \
 		  Objects/Common/Math.o \
 		  Objects/Common/Memory.o \
 \
+		  Objects/Drivers/VideoGraphicsArray.o \
 		  Objects/Drivers/Keyboard.o \
 		  Objects/Drivers/Mouse.o \
 \
@@ -54,7 +55,7 @@ clean:
 	mv $(OSName).iso Build/
 
 copy:
-	cp Build/$(OSName).iso /mnt/Desktop
+	cp Build/$(OSName).iso /mnt/hgfs/Desktop
 
 build: $(OSName).iso clean copy
 
