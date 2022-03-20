@@ -367,9 +367,9 @@ uint8_t *VideoGraphicsArray::GetFrameBufferSegment()
 {
     graphicsControllerIndexPort.Write(0x06);
     uint8_t segmentNumber = graphicsControllerDataPort.Read() & (3 << 2);
+
     switch (segmentNumber)
     {
-    default:
     case 0 << 2:
         return (uint8_t *)0x00000;
     case 1 << 2:
@@ -397,7 +397,7 @@ void VideoGraphicsArray::PutPixel(uint32_t x, uint32_t y, uint8_t r, uint8_t g, 
     PutPixel(x, y, GetColorIndex(r, g, b));
 }
 
-void VideoGraphicsArray::ClearScreen(uint8_t colorIndex/* = 0*/)
+void VideoGraphicsArray::ClearScreen(uint8_t colorIndex /* = 0*/)
 {
     for (int32_t y = 0; y < m_sizeY; y++)
     {

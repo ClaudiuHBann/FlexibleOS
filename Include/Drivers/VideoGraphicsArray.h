@@ -2,6 +2,7 @@
 #define _VIDEOGRAPHICSARRAY_H
 
 #include <HardwareCommunication/Port.h>
+
 #include <Common/Types.h>
 
 #define VGA_MODE_TEXT_40x25 40, 25
@@ -9,7 +10,7 @@
 #define VGA_MODE_TEXT_80x25 80, 25
 #define VGA_MODE_TEXT_80x50 80, 50
 #define VGA_MODE_TEXT_90x30 90, 30
-#define VGA_MODE_TEXT_90x60 60, 60
+#define VGA_MODE_TEXT_90x60 90, 60
 
 #define VGA_MODE_GRAPHIC_640x480x2 640, 480, 2
 #define VGA_MODE_GRAPHIC_320x200x4 320, 200, 4

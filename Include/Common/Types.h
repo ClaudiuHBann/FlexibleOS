@@ -1,11 +1,3 @@
-/*+===================================================================
-  File:      Types.h
-
-  Summary:   Definitions of different data types.
-
-  Copyright and Legal notices.
-===================================================================+*/
-
 #ifndef _TYPES_H
 #define _TYPES_H
 
@@ -50,22 +42,21 @@ typedef unsigned short *uint16ptr_t;
 typedef unsigned int *uint32ptr_t;
 typedef unsigned long long *uint64ptr_t;
 
-typedef struct multibootInfo_s
+typedef struct multibootHeader_s
 {
-    uint32_t m_magic; //all required...
+    uint32_t m_magic;
     uint32_t m_flags;
     uint32_t m_checksum;
-    uint32_t m_headerAddr; //all optional, set if bit 16 in flags is set...
-    uint32_t m_loadAddr;
-    uint32_t m_loadEndAddr;
-    uint32_t m_bssEndAddr;
-    uint32_t m_entryPoint;
-    uint32_t m_modType; //all optional, set if bit 2 in flags is set...
+    uint32_t m_header_addr;
+    uint32_t m_load_addr;
+    uint32_t m_load_end_addr;
+    uint32_t m_bss_end_addr;
+    uint32_t m_entry_addr;
+    uint32_t m_mode_type;
     uint32_t m_width;
     uint32_t m_height;
     uint32_t m_depth;
-
-} multibootInfo_t, *pMultibootInfo_t;
+} multibootHeader_t, *pMultibootHeader_t;
 
 typedef struct coordinates_s
 {

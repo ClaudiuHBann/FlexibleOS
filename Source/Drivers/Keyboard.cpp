@@ -1,8 +1,14 @@
 #include <Drivers/Keyboard.h>
 
+bool KeyboardDriver::s_modifiers[3];
+
 KeyboardDriver::KeyboardDriver(InterruptManager &interruptManager) : InterruptHandler(0x21, interruptManager),
                                                                      dataPort(0x60),
                                                                      commandPort(0x64)
+{
+}
+
+void KeyboardDriver::Activate()
 {
     while (commandPort.Read() & 0x1)
     {
@@ -28,7 +34,7 @@ uint32_t KeyboardDriver::HandleInterrupt(uint32_t esp)
     if (key >> 7)
     {
         Console c;
-        bool *modifiers = Console::GetModifiers();
+        bool *modifiers = s_modifiers;
 
         switch (key - (1 << 7))
         {
@@ -49,7 +55,7 @@ uint32_t KeyboardDriver::HandleInterrupt(uint32_t esp)
     if (key < 0x80)
     {
         Console c;
-        bool *modifiers = Console::GetModifiers();
+        bool *modifiers = s_modifiers;
 
         const char *line2thLower = "1234567890-=";
         const char *line3thLower = "qwertyuiop[]";

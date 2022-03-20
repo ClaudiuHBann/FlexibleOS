@@ -11,6 +11,7 @@ Objects = Objects/Common/Console.o \
 \
 		  Objects/Drivers/VideoGraphicsArray.o \
 		  Objects/Drivers/Keyboard.o \
+		  Objects/Drivers/Driver.o \
 		  Objects/Drivers/Mouse.o \
 \
 		  Objects/HardwareCommunication/InterruptManager.o \
@@ -18,6 +19,7 @@ Objects = Objects/Common/Console.o \
 		  Objects/HardwareCommunication/Port.o \
 \
 		  Objects/GlobalDescriptorTable.o \
+		  Objects/Miscellaneous.o \
 		  Objects/Kernel.o \
 		  Objects/Loader.o \
 

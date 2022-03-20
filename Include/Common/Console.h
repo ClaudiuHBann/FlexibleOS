@@ -1,6 +1,8 @@
 #ifndef _CONSOLE_H
 #define _CONSOLE_H
 
+#include <HardwareCommunication/Port.h>
+
 #include <Common/Converter.h>
 #include <Common/Memory.h>
 #include <Common/Types.h>
@@ -52,21 +54,21 @@ enum class ConsoleTextColors
 class Console
 {
 public:
-    Console();
+    Console() {}
     Console(const Console &console);
-    ~Console();
+    ~Console() {}
 
     static void Write(const int8_t ch);
-    static void WriteLine(const int8_t ch);
     static void Write(const uint8_t ch);
-    static void WriteLine(const uint8_t ch);
     static void Write(const int8_t *string);
-    static void WriteLine(const int8_t *string);
     static void Write(const uint8_t *string);
-    static void WriteLine(const uint8_t *string);
     static void Write(const int64_t integer);
-    static void WriteLine(const int64_t integer);
     static void Write(const uint32ptr_t pointer, const uint8_t base = 16);
+    static void WriteLine(const int8_t ch);
+    static void WriteLine(const uint8_t ch);
+    static void WriteLine(const int8_t *string);
+    static void WriteLine(const uint8_t *string);
+    static void WriteLine(const int64_t integer);
     static void WriteLine(const uint32ptr_t pointer, const uint8_t base = 16);
 
     static void *ReadKey();
@@ -81,14 +83,12 @@ public:
     static bool GetIsBlinking();
     static size_t &GetSize();
     static uint8_t GetTextColor();
-    static coordinates_t &GetCursorCoordinates();
-
-    static bool* GetModifiers();
+    static coordinates_t &GetCursorPosition();
 
     static void SetSize(const size_t &size);
     static void SetIsBlinking(const bool isBlinking);
     static void SetTextColor(const uint8_t color);
-    static void SetCursorCoodinates(const coordinates_t &coordinates);
+    static void SetCursorPosition(const coordinates_t &coordinates);
 
     Console &operator<<(const int8_t *string);
     Console &operator<<(const uint8_t *string);
@@ -110,7 +110,8 @@ private:
     static uint8_t s_textColor;
 
     static bool s_isBlinking;
-    static bool s_modifiers[3];
-};
+
+    static void CursorUpdate();
+} static cout;
 
 #endif // !_CONSOLE_H
