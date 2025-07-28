@@ -9,6 +9,9 @@
 
 #include <GlobalDescriptorTable.h>
 
+// Global variable for assembly access to kernel data segment selector
+extern uint16_t g_kernelDataSegmentSelector;
+
 class InterruptHandler;
 
 class InterruptManager
@@ -43,6 +46,8 @@ protected:
     Port8Slow picMasterData;
     Port8Slow picSlaveCommand;
     Port8Slow picSlaveData;
+
+    static uint16_t s_kernelDataSegmentSelector;
 
 public:
     InterruptManager();

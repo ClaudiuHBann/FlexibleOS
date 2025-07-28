@@ -1,0 +1,13 @@
+# Build artifacts
+Objects/
+*.bin
+*.iso
+iso/
+
+# IDE
+.vscode/
+*.code-workspace
+
+# OS generated files
+.DS_Store
+Thumbs.db

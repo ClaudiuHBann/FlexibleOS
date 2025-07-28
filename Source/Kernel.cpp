@@ -37,6 +37,9 @@ extern "C" void KernelMain(uint32_t *multiBootHeader, uint32_t)
 
 	interruptManager.Activate();
 
+	cout << "Interrupts activated - testing framebuffer access...\n";
+	cout << "If you can see this message, the fix is working!\n\n";
+
 	SystemDateTime sdt = Miscellaneous::ReadRTCAndConvert();
 	cout << "Time: " << (int64_t)sdt.time.hours << ":" << (int64_t)sdt.time.minutes << ":" << (int64_t)sdt.time.seconds << '\n';
 	cout << "Date: " << (int64_t)sdt.date.months << "/" << (int64_t)sdt.date.days << "/" << (int64_t)sdt.date.years << "\n\n";

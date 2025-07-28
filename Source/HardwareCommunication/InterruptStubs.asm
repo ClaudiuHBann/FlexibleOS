@@ -3,6 +3,7 @@
 .section .text
 
 .extern _ZN16InterruptManager15HandleInterruptEhj
+.extern g_kernelDataSegmentSelector
 
 .macro HandleException num
 .global _ZN16InterruptManager16HandleException\num\()Ev
@@ -28,6 +29,13 @@ int_bottom:
     pushl %es
     pushl %fs
     pushl %gs
+
+    # Set kernel data segments for interrupt handler
+    movw g_kernelDataSegmentSelector, %ax
+    movw %ax, %ds
+    movw %ax, %es
+    movw %ax, %fs
+    movw %ax, %gs
 
     pushl %esp
     push (interruptNumber)
