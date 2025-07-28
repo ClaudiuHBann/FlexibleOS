@@ -2,6 +2,10 @@
 
 InterruptManager::gateDescriptor_s InterruptManager::s_interruptDescriptorTable[256];
 InterruptManager *InterruptManager::s_activeInterruptManager = nullptr;
+uint16_t InterruptManager::s_kernelDataSegmentSelector = 0;
+
+// C-style global for assembly access
+uint16_t g_kernelDataSegmentSelector = 0;
 
 InterruptManager::InterruptManager()
 {
@@ -41,6 +45,8 @@ InterruptManager::InterruptManager(GlobalDescriptorTable &globalDescriptorTable)
       picSlaveData(0xA1)
 {
     uint16_t codeSegment = globalDescriptorTable.GetCodeSegmentSelector();
+    s_kernelDataSegmentSelector = globalDescriptorTable.GetDataSegmentSelector();
+    g_kernelDataSegmentSelector = s_kernelDataSegmentSelector;
     const uint8_t IDT_INTERRUPT_GATE = 0xE;
 
     for (uint16_t i = 0; i < 256; i++)
